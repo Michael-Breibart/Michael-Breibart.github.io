@@ -1,119 +1,64 @@
-/**
- * Michael Breibart — Personal Portfolio
- * Interactive Script: Theme switcher, Project filtering, Clipboard, Mobile Nav
- */
-
+/* Small interactions for a buildless, paper-first portfolio. */
 document.addEventListener('DOMContentLoaded', () => {
-  // --------------------------------------------------------------------------
-  // 1. Theme Switcher (Dark / Light) with LocalStorage & OS Preference
-  // --------------------------------------------------------------------------
-  const themeToggle = document.getElementById('theme-toggle');
-  const htmlRoot = document.documentElement;
-
-  // Retrieve saved preference or default to OS/dark
-  const savedTheme = localStorage.getItem('theme');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-  if (savedTheme) {
-    htmlRoot.setAttribute('data-theme', savedTheme);
-  } else if (!prefersDark) {
-    htmlRoot.setAttribute('data-theme', 'light');
-  } else {
-    htmlRoot.setAttribute('data-theme', 'dark');
+  const menuButton = document.getElementById('mobile-menu-btn');
+  const drawer = document.getElementById('mobile-drawer');
+  function setMenu(open, restoreFocus = false) {
+    drawer.hidden = !open;
+    menuButton.setAttribute('aria-expanded', String(open));
+    menuButton.setAttribute('aria-label', open ? 'Close navigation menu' : 'Open navigation menu');
+    if (restoreFocus) menuButton.focus();
   }
-
-  themeToggle?.addEventListener('click', () => {
-    const currentTheme = htmlRoot.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    htmlRoot.setAttribute('data-theme', newTheme);
-    localStorage.setItem('theme', newTheme);
+  menuButton.addEventListener('click', () => setMenu(drawer.hidden));
+  drawer.querySelectorAll('a').forEach(link => link.addEventListener('click', () => setMenu(false)));
+  document.addEventListener('click', event => {
+    if (!drawer.hidden && !drawer.contains(event.target) && !menuButton.contains(event.target)) setMenu(false);
+  });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && !drawer.hidden) setMenu(false, true);
+  });
+  window.matchMedia('(min-width: 481px)').addEventListener('change', event => {
+    if (event.matches) setMenu(false);
   });
 
-  // --------------------------------------------------------------------------
-  // 2. Mobile Navigation Drawer
-  // --------------------------------------------------------------------------
-  const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-  const mobileDrawer = document.getElementById('mobile-drawer');
-  const mobileLinks = document.querySelectorAll('.mobile-link');
-
-  mobileMenuBtn?.addEventListener('click', () => {
-    mobileDrawer?.classList.toggle('active');
-  });
-
-  mobileLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      mobileDrawer?.classList.remove('active');
+  const buttons = document.querySelectorAll('.filter-btn');
+  const cards = document.querySelectorAll('.project-card');
+  const filterStatus = document.getElementById('filter-status');
+  buttons.forEach(button => button.addEventListener('click', () => {
+    const filter = button.dataset.filter;
+    buttons.forEach(item => {
+      const selected = item === button;
+      item.classList.toggle('active', selected);
+      item.setAttribute('aria-pressed', String(selected));
     });
-  });
-
-  // Close mobile drawer when clicking outside
-  document.addEventListener('click', (e) => {
-    if (
-      mobileDrawer?.classList.contains('active') &&
-      !mobileDrawer.contains(e.target) &&
-      !mobileMenuBtn.contains(e.target)
-    ) {
-      mobileDrawer.classList.remove('active');
-    }
-  });
-
-  // --------------------------------------------------------------------------
-  // 3. Project Filter Tabs
-  // --------------------------------------------------------------------------
-  const filterBtns = document.querySelectorAll('.filter-btn');
-  const projectCards = document.querySelectorAll('.project-card');
-
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-      // Set active button
-      filterBtns.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      const filterValue = btn.getAttribute('data-filter');
-
-      projectCards.forEach(card => {
-        const category = card.getAttribute('data-category');
-        if (filterValue === 'all' || category === filterValue) {
-          card.classList.remove('hidden');
-          // Add entrance animation
-          card.style.animation = 'fadeIn 0.35s ease forwards';
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+    let count = 0;
+    cards.forEach(card => {
+      card.hidden = filter !== 'all' && card.dataset.category !== filter;
+      if (!card.hidden) count++;
     });
-  });
+    const category = filter === 'all' ? 'all projects' : button.textContent.replace(/\d+/g, '').trim().toLowerCase();
+    filterStatus.textContent = `Showing ${count} of ${cards.length} projects: ${category}.`;
+  }));
 
-  // --------------------------------------------------------------------------
-  // 4. Copy Email to Clipboard with UI Feedback
-  // --------------------------------------------------------------------------
-  const copyEmailBtn = document.getElementById('copy-email-btn');
-  const copyText = document.getElementById('copy-text');
-
-  copyEmailBtn?.addEventListener('click', async () => {
-    const email = copyEmailBtn.getAttribute('data-email') || 'breibartmichael@gmail.com';
+  const copyButton = document.getElementById('copy-email-btn');
+  const copyStatus = document.getElementById('copy-status');
+  let resetTimer;
+  copyButton.addEventListener('click', async () => {
+    copyButton.disabled = true;
+    clearTimeout(resetTimer);
     try {
-      await navigator.clipboard.writeText(email);
-      const originalText = copyText.textContent;
-      copyText.textContent = 'Copied to Clipboard! ✓';
-      copyEmailBtn.style.borderColor = 'var(--accent-emerald)';
-      copyEmailBtn.style.color = 'var(--accent-emerald)';
-
-      setTimeout(() => {
-        copyText.textContent = originalText;
-        copyEmailBtn.style.borderColor = '';
-        copyEmailBtn.style.color = '';
-      }, 2500);
-    } catch (err) {
-      console.error('Failed to copy: ', err);
+      await navigator.clipboard.writeText(copyButton.dataset.email);
+      copyButton.textContent = 'Copied ✓';
+      copyStatus.textContent = 'Email address copied to your clipboard.';
+    } catch {
+      copyButton.textContent = 'Copy email';
+      copyStatus.textContent = `Copy unavailable. Email me at ${copyButton.dataset.email}.`;
+    } finally {
+      copyButton.disabled = false;
+      resetTimer = setTimeout(() => {
+        copyButton.textContent = 'Copy email';
+        copyStatus.textContent = '';
+      }, 3000);
     }
   });
-
-  // --------------------------------------------------------------------------
-  // 5. Current Year
-  // --------------------------------------------------------------------------
-  const currentYearSpan = document.getElementById('current-year');
-  if (currentYearSpan) {
-    currentYearSpan.textContent = new Date().getFullYear();
-  }
+  document.getElementById('current-year').textContent = new Date().getFullYear();
 });

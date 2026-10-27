@@ -1,87 +1,40 @@
-# Michael Breibart — Personal Portfolio Website
+# Michael Breibart — Portfolio
 
-A fast, modern, and responsive personal portfolio website crafted for **Michael Breibart**.
+A white sketch-paper portfolio built with semantic HTML, CSS, vanilla JavaScript, and local SVG illustrations. No build step, packages, external fonts, or framework.
 
-Built with semantic HTML5, modern responsive CSS with custom properties, and vanilla JavaScript — zero heavy dependencies, 100/100 Lighthouse performance, instant load times, and native compatibility with **GitHub Pages**.
+## Local preview
 
----
-
-## 🚀 Live Local Preview
-
-You can preview the site immediately by simply opening `index.html` in your browser:
-
-```bash
-# macOS quick open
-open index.html
-
-# Or run a local HTTP server
-python3 -m http.server 8000
-# Then visit http://localhost:8000
+```sh
+python3 -m http.server 8000 --bind 127.0.0.1
 ```
 
----
+Open http://127.0.0.1:8000. The populated checkout is `/Users/iphonecool/Downloads/Personal Website`.
 
-## 🌐 GitHub Pages Deployment Guide
+## Content
 
-Your current GitHub account is `@NeurologicalMichael`. Here are your best options for publishing this site with GitHub Pages:
+Eight entries: custom flight controller and modular drone; micro ducted inspection drone; RU Autonomous / Everest; Bible Scroll; WedShare; Nine Diagnostics; Blaser Laboratory microbiome research; SeaPerch robotics.
 
-### Option 1: Dedicated Portfolio Repo (Recommended for instant start)
-1. Initialize git and commit:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit: Michael Breibart portfolio"
-   ```
-2. Create and push to a new public GitHub repo:
-   ```bash
-   gh repo create michaelbreibart --public --source=. --remote=origin --push
-   ```
-3. Enable GitHub Pages:
-   ```bash
-   gh api -X POST repos/NeurologicalMichael/michaelbreibart/pages -f source='{"branch":"main","path":"/"}'
-   ```
-   *Your live URL will be:* **`https://neurologicalmichael.github.io/michaelbreibart/`**
+The app entry includes product and audience building. Individual YouTube channels are intentionally omitted. Other projects from the previous portfolio have been removed.
 
----
+## Files
 
-### Option 2: Root User Domain (`NeurologicalMichael.github.io`)
-If you name your repository `<username>.github.io`, GitHub automatically serves it at the root user domain:
-1. Create repository named `NeurologicalMichael.github.io`:
-   ```bash
-   gh repo create NeurologicalMichael.github.io --public --source=. --remote=origin --push
-   ```
-   *Your live URL will be:* **`https://neurologicalmichael.github.io/`**
+- `index.html`: content, project entries, category filters, about, contact.
+- `style.css`: white paper texture, responsive layout, typography, focus and reduced-motion support.
+- `script.js`: accessible mobile navigation, category filtering, clipboard feedback, current year.
+- `assets/`: lightweight SVG line illustrations and favicon. Drawings are illustrative studies, not engineering diagrams or product screenshots.
 
----
+The site has one intentional white-paper appearance, replacing the previous dark/light theme switcher. Content remains readable without JavaScript; interactive filters and the mobile drawer enhance it when available.
 
-### Option 3: Claim `michaelbreibart` Username on GitHub (Pro Tip ⭐)
-The username `michaelbreibart` is currently **unclaimed** on GitHub!
-1. Go to **GitHub Settings** → **Account** → **Change username**.
-2. Change your username from `NeurologicalMichael` to `michaelbreibart`.
-3. Create the repo `michaelbreibart.github.io`.
-   *Your live URL will be:* **`https://michaelbreibart.github.io/`**
+## Content sources
 
----
+Project facts were checked against Michael’s October 12, 2026 resume, the existing public drone repository, and local drone project notes. WedShare links to https://wedshare.online; Nine Diagnostics links to https://ninediagnostics.xyz. The resume itself is not published because it includes private contact details.
 
-### Option 4: Custom Domain (e.g., `michaelbreibart.com`)
-If you purchase `michaelbreibart.com` (from Namecheap, Cloudflare, Google Domains/Squarespace, etc.):
-1. Add a file named `CNAME` in this directory containing your domain:
-   ```bash
-   echo "michaelbreibart.com" > CNAME
-   ```
-2. Configure DNS A records pointing to GitHub Pages IP addresses:
-   - `185.199.108.153`
-   - `185.199.109.153`
-   - `185.199.110.153`
-   - `185.199.111.153`
+Describe independent drones as in development until physical test evidence supports stronger claims. Distinguish Michael’s contribution from RU Autonomous’s team achievements. Do not add channel names, audience metrics, or project outcomes without verified sources.
 
----
+## Deployment
 
-## 🛠️ Features Included
+Repository: https://github.com/Michael-Breibart/Michael-Breibart.github.io
 
-- **Dark & Light Mode**: Seamless theme switcher that respects system OS preference and saves state in `localStorage`.
-- **Vertical Architecture**: Highlights hardware/STM32, AI/bio-ML, iOS/mobile, and quantitative finance.
-- **Interactive Project Filtering**: Filter projects by Hardware & Robotics, AI & Bio-ML, Mobile Apps, FinTech & Quant, and Web.
-- **Interactive Terminal**: Showcases engineering philosophy and commands.
-- **Direct Contact & Copy-to-Clipboard**: One-click email copying with visual confirmation.
-- **Fully Responsive**: Optimized for ultra-wide displays, laptops, tablets, and phones.
+Production: https://michael-breibart.github.io/
+
+GitHub Pages deploys from `main`. A push to `main` publishes the site; no Sites hosting or build pipeline is used. Run `node --check script.js`, check local asset paths and anchors, and review desktop and narrow mobile layouts before pushing. Lighthouse scores require an actual audit; do not infer them from the stack.
