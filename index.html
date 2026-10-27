@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Michael Breibart — Builder, Systems Engineer & Product Creator</title>
+  <meta name="description" content="Portfolio of Michael Breibart — Multi-disciplinary builder bridging embedded hardware, autonomous systems, applied AI, quantitative engines, and consumer mobile apps.">
+  <meta name="keywords" content="Michael Breibart, NeurologicalMichael, Systems Engineer, Embedded Systems, AI Biotech, Swift iOS, Robotics, Full-Stack">
+  <meta name="author" content="Michael Breibart">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Michael Breibart — Portfolio">
+  <meta property="og:description" content="Constantly Building. Hardware, AI, Mobile, and Quantitative Systems.">
+  <meta property="og:image" content="assets/og-image.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Ambient Background Glows -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Navigation -->
+  <header class="header">
+    <div class="nav-container">
+      <a href="#hero" class="brand">
+        <span class="brand-code">&lt;</span>MichaelBreibart<span class="brand-code">/&gt;</span>
+      </a>
+
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#projects">Projects</a>
+        <a href="#stack">Stack</a>
+        <a href="#philosophy">Principles</a>
+        <a href="#contact">Contact</a>
+      </nav>
+
+      <div class="nav-actions">
+        <button id="theme-toggle" class="icon-btn" aria-label="Toggle light and dark theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="5"></circle>
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"></path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+
+        <a href="#contact" class="btn btn-sm btn-primary">Get in Touch</a>
+
+        <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Open navigation menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer" class="mobile-drawer">
+    <nav class="mobile-nav">
+      <a href="#about" class="mobile-link">About</a>
+      <a href="#projects" class="mobile-link">Projects</a>
+      <a href="#stack" class="mobile-link">Stack</a>
+      <a href="#philosophy" class="mobile-link">Principles</a>
+      <a href="#contact" class="mobile-link">Contact</a>
+      <a href="#contact" class="btn btn-primary mt-4">Let's Talk</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- Hero Section -->
+    <section id="hero" class="hero-section">
+      <div class="container hero-container">
+        
+        <div class="status-badge-wrapper">
+          <span class="status-badge">
+            <span class="status-pulse"></span>
+            Constantly Building & Exploring
+          </span>
+        </div>
+
+        <h1 class="hero-title">
+          Hi, I'm <span class="gradient-text">Michael Breibart</span>.
+          <br>I build intelligent systems from hardware to cloud.
+        </h1>
+
+        <p class="hero-subtitle">
+          Multi-disciplinary builder and systems engineer. From custom STM32 flight controllers and protein language models, to high-scale iOS apps and quantitative pricing engines.
+        </p>
+
+        <div class="hero-cta-group">
+          <a href="#projects" class="btn btn-primary">
+            <span>Explore Work</span>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14M12 5l7 7-7 7"></path>
+            </svg>
+          </a>
+          <a href="https://github.com/NeurologicalMichael" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+            <span>GitHub Profile</span>
+          </a>
+          <a href="#contact" class="btn btn-outline">
+            <span>Contact Me</span>
+          </a>
+        </div>
+
+        <!-- Highlight Stats Bar -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-num">20+</div>
+            <div class="stat-label">Shipped Repos & Projects</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">105K+</div>
+            <div class="stat-label">Community & Audience Reach</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">Full-Stack</div>
+            <div class="stat-label">Circuit Board to Cloud AI</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-num">100%</div>
+            <div class="stat-label">Hands-on Execution</div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Background</p>
+          <h2 class="section-title">Vertical Integration Across Disciplines</h2>
+        </div>
+
+        <div class="about-grid">
+          <div class="about-text-card">
+            <h3 class="card-heading">Relentless execution, deep curiosity.</h3>
+            <p>
+              I believe modern breakthroughs happen at the intersections: where low-level embedded hardware meets computer vision, where biological sequence embeddings meet computational pharmacology, and where high-performance algorithmic execution meets delightful consumer UI.
+            </p>
+            <p>
+              Whether it's calibrating sensor fusion algorithms on custom drone PCBs, building neural language models to predict peptide bioactivity, or growing an organic community of 100K+ around mobile self-control apps, I focus on building products that work reliably in the real world.
+            </p>
+            <div class="focus-pills">
+              <span class="pill">Robotics & Autonomous Systems</span>
+              <span class="pill">Protein Language Models & Bio-ML</span>
+              <span class="pill">iOS & Native App Development</span>
+              <span class="pill">Quantitative Arbitrage & FinTech</span>
+              <span class="pill">Product Architecture & Growth</span>
+            </div>
+          </div>
+
+          <div class="about-quote-card">
+            <div class="terminal-header">
+              <span class="terminal-dot red"></span>
+              <span class="terminal-dot yellow"></span>
+              <span class="terminal-dot green"></span>
+              <span class="terminal-title">michael@build-station:~</span>
+            </div>
+            <div class="terminal-body">
+              <p><span class="prompt">$</span> git config --get user.bio</p>
+              <p class="output-highlight">"Constantly Building."</p>
+              <p><span class="prompt">$</span> current_status</p>
+              <p class="output-text">Building next-gen autonomous flight firmware, training sequence models, and shipping clean software.</p>
+              <p><span class="prompt">$</span> ping -c 1 goals</p>
+              <p class="output-text">64 bytes from innovation: icmp_seq=1 ttl=64 time=0.01 ms [0% packet loss]</p>
+              <p><span class="prompt">$</span> <span class="blinking-cursor">_</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Selected Works</p>
+          <h2 class="section-title">Projects Across the Stack</h2>
+          <p class="section-desc">From autonomous physical machines to biological AI, quantitative markets, and consumer mobile applications.</p>
+        </div>
+
+        <!-- Filter tabs -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All Projects</button>
+          <button class="filter-btn" data-filter="hardware">Hardware & Robotics</button>
+          <button class="filter-btn" data-filter="ai">AI & Bio-ML</button>
+          <button class="filter-btn" data-filter="mobile">Mobile Apps</button>
+          <button class="filter-btn" data-filter="quant">FinTech & Quant</button>
+          <button class="filter-btn" data-filter="web">Web & Platforms</button>
+        </div>
+
+        <!-- Projects Grid -->
+        <div class="projects-grid">
+
+          <!-- Project 1: Autonomous Drone Platform -->
+          <article class="project-card" data-category="hardware">
+            <div class="project-top">
+              <div class="project-icon-box hardware">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                </svg>
+              </div>
+              <span class="badge badge-accent">Featured Hardware</span>
+            </div>
+            <h3 class="project-title">Autonomous Drone Platform</h3>
+            <p class="project-description">
+              Custom autonomous quadcopter system built around an STM32 flight controller. Combines real-time sensor fusion (IMU/baro), PID stabilization, high-frequency motor control, and onboard computer-vision target tracking.
+            </p>
+            <div class="tech-tags">
+              <span>STM32</span>
+              <span>C / C++</span>
+              <span>PID Control</span>
+              <span>Computer Vision</span>
+              <span>Robotics</span>
+            </div>
+            <div class="project-footer">
+              <a href="https://github.com/NeurologicalMichael/Autonomous-Drone-Legal-" target="_blank" rel="noopener noreferrer" class="card-link">
+                <span>View Repository</span>
+                <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>
+                </svg>
+              </a>
+            </div>
+          </article>
+
+          <!-- Project 2: PepForge -->
+          <article class="project-card" data-category="ai">
+            <div class="project-top">
+              <div class="project-icon-box ai">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                </svg>
+              </div>
+              <span class="badge badge-cyan">AI & Biotech</span>
+            </div>
+            <h3 class="project-title">PepForge</h3>
+            <p class="project-description">
+              Bioactivity prediction engine utilizing deep protein language model embeddings (ESM) to evaluate and rank candidate therapeutic peptides, significantly reducing wet-lab screening cycles.
+            </p>
+            <div class="tech-tags">
+              <span>Python</span>
+              <span>PyTorch</span>
+              <span>Protein LMs</span>
+              <span>Bioinformatics</span>
+              <span>Embeddings</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Active Research</span>
+            </div>
+          </article>
+
+          <!-- Project 3: LustLock -->
+          <article class="project-card" data-category="mobile">
+            <div class="project-top">
+              <div class="project-icon-box mobile">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                  <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                </svg>
+              </div>
+              <span class="badge badge-purple">105K+ Community</span>
+            </div>
+            <h3 class="project-title">LustLock</h3>
+            <p class="project-description">
+              Christian self-control and accountability mobile application designed to foster lasting digital habits. Scaled organic branding to over 105K+ social media followers with consistent daily store downloads.
+            </p>
+            <div class="tech-tags">
+              <span>iOS</span>
+              <span>Swift</span>
+              <span>Community Growth</span>
+              <span>Product Design</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Live on App Store</span>
+            </div>
+          </article>
+
+          <!-- Project 4: Quantitative Inefficiency Engine -->
+          <article class="project-card" data-category="quant">
+            <div class="project-top">
+              <div class="project-icon-box quant">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                </svg>
+              </div>
+              <span class="badge badge-amber">FinTech</span>
+            </div>
+            <h3 class="project-title">Quantitative Arbitrage Engine</h3>
+            <p class="project-description">
+              High-throughput market analysis engine identifying short-lived cross-venue pricing inefficiencies. Models real-time slippage, order-book depth, gas/exchange fees, and execution constraints for 1–6% margin opportunities.
+            </p>
+            <div class="tech-tags">
+              <span>Python</span>
+              <span>Order-Book Dynamics</span>
+              <span>WebSockets</span>
+              <span>Algorithms</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Proprietary System</span>
+            </div>
+          </article>
+
+          <!-- Project 5: Bible Scroll -->
+          <article class="project-card" data-category="mobile">
+            <div class="project-top">
+              <div class="project-icon-box mobile">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                  <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+                </svg>
+              </div>
+              <span class="badge badge-purple">iOS Application</span>
+            </div>
+            <h3 class="project-title">Bible Scroll</h3>
+            <p class="project-description">
+              Clean, distraction-free native iOS reader designed for scripture exploration. Emphasizes typography, instant search indexing, and fluid offline performance.
+            </p>
+            <div class="tech-tags">
+              <span>Swift</span>
+              <span>SwiftUI</span>
+              <span>iOS Architecture</span>
+              <span>CoreData</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">iOS Project</span>
+            </div>
+          </article>
+
+          <!-- Project 6: WedShare -->
+          <article class="project-card" data-category="web">
+            <div class="project-top">
+              <div class="project-icon-box web">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+              </div>
+              <span class="badge badge-emerald">Full-Stack SaaS</span>
+            </div>
+            <h3 class="project-title">WedShare</h3>
+            <p class="project-description">
+              Event photo-sharing platform enabling couples to collect full-resolution guest photos and videos via event-specific QR codes without requiring app installs or account signups.
+            </p>
+            <div class="tech-tags">
+              <span>TypeScript</span>
+              <span>Next.js</span>
+              <span>Cloud Storage</span>
+              <span>QR Ingestion</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Deployed</span>
+            </div>
+          </article>
+
+          <!-- Project 7: PredictPad & Evolve -->
+          <article class="project-card" data-category="quant">
+            <div class="project-top">
+              <div class="project-icon-box quant">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76"></polygon>
+                </svg>
+              </div>
+              <span class="badge badge-amber">Web3 & Prediction</span>
+            </div>
+            <h3 class="project-title">PredictPad & Evolve</h3>
+            <p class="project-description">
+              Solana-based prediction communities integrating live Kalshi oracle feeds alongside simulated prediction treasuries, plus token launchpads governed by programmatic evolution trees.
+            </p>
+            <div class="tech-tags">
+              <span>Solana</span>
+              <span>Rust</span>
+              <span>Oracles (Kalshi)</span>
+              <span>Smart Contracts</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Decentralized Systems</span>
+            </div>
+          </article>
+
+          <!-- Project 8: Retail Arbitrage Engine -->
+          <article class="project-card" data-category="quant">
+            <div class="project-top">
+              <div class="project-icon-box quant">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+              </div>
+              <span class="badge badge-amber">Automation</span>
+            </div>
+            <h3 class="project-title">Retail Arbitrage Engine</h3>
+            <p class="project-description">
+              Automated multi-marketplace scanner comparing catalog prices across e-commerce giants. Factored in shipping costs, category take rates, and historical velocity to discover net-profitable flips.
+            </p>
+            <div class="tech-tags">
+              <span>Python</span>
+              <span>Async Scraping</span>
+              <span>Fee Modeling</span>
+              <span>Automation</span>
+            </div>
+            <div class="project-footer">
+              <span class="card-status-pill">Automated System</span>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Tech Stack Matrix -->
+    <section id="stack" class="stack-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Capabilities</p>
+          <h2 class="section-title">Technical Toolbelt</h2>
+          <p class="section-desc">Tools, languages, and frameworks used across production codebases.</p>
+        </div>
+
+        <div class="stack-grid">
+          
+          <div class="stack-category">
+            <h3 class="stack-cat-title">
+              <span class="cat-icon">⚙️</span>
+              Hardware & Systems
+            </h3>
+            <ul class="stack-list">
+              <li><span>STM32 & ARM Cortex-M</span> <span class="tag-sub">Microcontrollers</span></li>
+              <li><span>Embedded C / C++</span> <span class="tag-sub">Firmware</span></li>
+              <li><span>PID Stabilization & Sensors</span> <span class="tag-sub">Control</span></li>
+              <li><span>Computer Vision (OpenCV)</span> <span class="tag-sub">Tracking</span></li>
+              <li><span>Serial / I2C / SPI / CAN</span> <span class="tag-sub">Protocols</span></li>
+            </ul>
+          </div>
+
+          <div class="stack-category">
+            <h3 class="stack-cat-title">
+              <span class="cat-icon">🧠</span>
+              AI & Applied ML
+            </h3>
+            <ul class="stack-list">
+              <li><span>Python & PyTorch</span> <span class="tag-sub">Deep Learning</span></li>
+              <li><span>Protein Language Models (ESM)</span> <span class="tag-sub">Bio-ML</span></li>
+              <li><span>Transformers & Embeddings</span> <span class="tag-sub">NLP / Bio</span></li>
+              <li><span>NumPy, Pandas, SciPy</span> <span class="tag-sub">Data Science</span></li>
+              <li><span>Model Serving & Optimization</span> <span class="tag-sub">Inference</span></li>
+            </ul>
+          </div>
+
+          <div class="stack-category">
+            <h3 class="stack-cat-title">
+              <span class="cat-icon">📱</span>
+              Mobile & Consumer Apps
+            </h3>
+            <ul class="stack-list">
+              <li><span>Swift & SwiftUI</span> <span class="tag-sub">iOS Native</span></li>
+              <li><span>CoreData & SwiftData</span> <span class="tag-sub">Local Persistence</span></li>
+              <li><span>App Store Deployment & CI/CD</span> <span class="tag-sub">Distribution</span></li>
+              <li><span>Organic Growth & Virality</span> <span class="tag-sub">Audience</span></li>
+              <li><span>UX & Interaction Design</span> <span class="tag-sub">Mobile First</span></li>
+            </ul>
+          </div>
+
+          <div class="stack-category">
+            <h3 class="stack-cat-title">
+              <span class="cat-icon">⚡</span>
+              Full-Stack & Cloud
+            </h3>
+            <ul class="stack-list">
+              <li><span>TypeScript / JavaScript</span> <span class="tag-sub">Frontend/Backend</span></li>
+              <li><span>React & Next.js</span> <span class="tag-sub">Modern Web</span></li>
+              <li><span>Node.js / FastAPI</span> <span class="tag-sub">APIs</span></li>
+              <li><span>PostgreSQL, SQLite, Redis</span> <span class="tag-sub">Databases</span></li>
+              <li><span>Git, Docker, GitHub Actions</span> <span class="tag-sub">DevOps</span></li>
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Engineering Philosophy / Principles -->
+    <section id="philosophy" class="philosophy-section">
+      <div class="container">
+        <div class="section-header">
+          <p class="section-tag">Philosophy</p>
+          <h2 class="section-title">How I Build & Think</h2>
+        </div>
+
+        <div class="principles-grid">
+          <div class="principle-card">
+            <div class="principle-number">01</div>
+            <h3>End-to-End Ownership</h3>
+            <p>From schematic soldering and low-level firmware to the cloud backend and user interface, I prefer understanding the full vertical pipeline so nothing is a black box.</p>
+          </div>
+
+          <div class="principle-card">
+            <div class="principle-number">02</div>
+            <h3>Bias Toward Rapid Working Prototypes</h3>
+            <p>Theory is essential, but reality is the final validator. Getting physical hardware in the air or real code in front of actual users immediately reveals edge cases that slides miss.</p>
+          </div>
+
+          <div class="principle-card">
+            <div class="principle-number">03</div>
+            <h3>Simplicity & Reliability Over Hype</h3>
+            <p>Choose the simplest architecture that solves the problem robustly. Fewer moving parts mean lower latency, fewer failure modes, and long-term maintainability.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact & Connect Section -->
+    <section id="contact" class="contact-section">
+      <div class="container contact-container">
+        <div class="contact-card">
+          <div class="section-header center">
+            <p class="section-tag">Let's Connect</p>
+            <h2 class="section-title">Interested in building together?</h2>
+            <p class="section-desc">Whether it's discussing autonomous robotics, AI models, high-scale consumer apps, or advisory roles, my inbox is always open.</p>
+          </div>
+
+          <div class="contact-actions">
+            <!-- Email Action with Copy feedback -->
+            <div class="email-box">
+              <a href="mailto:breibartmichael@gmail.com" class="btn btn-primary btn-lg">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                <span>Send Email</span>
+              </a>
+              <button id="copy-email-btn" class="btn btn-secondary btn-lg" data-email="breibartmichael@gmail.com" title="Click to copy email address">
+                <svg class="copy-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                  <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                  <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                </svg>
+                <span id="copy-text">Copy Email</span>
+              </button>
+            </div>
+
+            <!-- Social Links -->
+            <div class="social-links-row">
+              <a href="https://github.com/NeurologicalMichael" target="_blank" rel="noopener noreferrer" class="social-link-pill">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                </svg>
+                <span>GitHub (@NeurologicalMichael)</span>
+              </a>
+
+              <a href="https://linkedin.com/in/michaelbreibart" target="_blank" rel="noopener noreferrer" class="social-link-pill">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                </svg>
+                <span>LinkedIn</span>
+              </a>
+
+              <a href="https://x.com/michaelbreibart" target="_blank" rel="noopener noreferrer" class="social-link-pill">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span>X / Twitter</span>
+              </a>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-content">
+      <div class="footer-left">
+        <p>© <span id="current-year">2026</span> Michael Breibart. All rights reserved.</p>
+        <p class="footer-sub">Designed for high performance & hosted on GitHub Pages.</p>
+      </div>
+      <div class="footer-right">
+        <a href="#hero" class="back-to-top">
+          <span>Back to Top</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="19" x2="12" y2="5"></line>
+            <polyline points="5 12 12 5 19 12"></polyline>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
