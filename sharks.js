@@ -217,17 +217,6 @@
       context.fillStyle = glow;
       context.fillRect(x - 105, y - 105, 210, 210);
     }
-    for (const ripple of liveRipples) {
-      const fade = (1 - ripple.age / 3.2) * ripple.strength;
-      const radius = 12 + ripple.age * 110;
-      for (let band = 0; band < 2; band++) {
-        context.beginPath();
-        context.arc(ripple.x, ripple.y, Math.max(1, radius - band * 14), 0, Math.PI * 2);
-        context.lineWidth = band ? 1.2 : 2.4;
-        context.strokeStyle = band ? `rgba(42,113,157,${fade * 0.17})` : `rgba(236,253,255,${fade * 0.57})`;
-        context.stroke();
-      }
-    }
     while (ripples.length && waterTime - ripples[0].born > 3.2) ripples.shift();
   }
 
