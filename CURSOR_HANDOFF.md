@@ -1,15 +1,16 @@
 # Portfolio handoff
 
-Read `README.md` for the current structure and publishing setup.
+Read `README.md` for the current structure and deployment setup.
 
 - Active checkout: `/Users/iphonecool/Downloads/Personal Website`.
 - Remote: `Michael-Breibart/Michael-Breibart.github.io`, GitHub Pages from `main`.
-- Pure HTML/CSS/vanilla JS. Preserve the buildless, dependency-free stack.
-- White sketch-paper design with graphite text, restrained green ink, local SVG drawings, and system fonts. The single paper theme deliberately replaces the old glassmorphic dark/light design.
-- Only feature the independent drone projects, RU Autonomous, Bible Scroll and app distribution, WedShare, Nine Diagnostics, Blaser Lab research, and SeaPerch.
-- Do not feature YouTube channels yet. Do not restore unrelated apps, quant projects, PepForge, or generic skills/principles sections.
-- Project cards use `data-category="hardware|apps|research"`. Keep filters, counts, and `aria-pressed` synchronized when adding or removing entries.
-- Preserve narrow-screen layouts, keyboard navigation, visible focus, reduced motion, and accessible status messages.
-- Public drawings are illustrative. Do not represent them as actual product screenshots or manufacturing-ready schematics.
-- Never copy a private resume, its street address, or its phone number into public assets.
-- Review changes locally and run appropriate checks before committing and pushing to `main` for deployment.
+- Buildless HTML/CSS/vanilla JS. No external fonts, dependencies, or build pipeline.
+- Current design: minimal project index, optional narrow project column, white/ocean-blue ASCII shark field. Preserve the plain typography and compact layout.
+- The user rejected the previous notebook design. Do not restore large editorial headlines, project cards, line-drawing illustrations, generic taglines, numbered sections, or filters.
+- Only feature independent drones, RU Autonomous, Bible Scroll and app distribution, WedShare, Nine Diagnostics, Blaser Lab research, and SeaPerch. No YouTube channels yet.
+- Project routes are hashes such as `#drone` and `#wedshare`, so direct links work on GitHub Pages. Update the navigation and matching article together.
+- `sharks.js` is original Canvas 2D software rendering. Preserve reduced-motion, Play/Pause, offscreen/hidden-page suspension, and the SVG fallback.
+- Preserve keyboard focus, Escape to close details, modified-link clicks, browser history, and mobile scrolling.
+- Distinguish development work from completed flight testing and team achievements.
+- Do not publish the private resume, its street address, or its phone number.
+- Validate locally, then commit and push to `main` for deployment.
