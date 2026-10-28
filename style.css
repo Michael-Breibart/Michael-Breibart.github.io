@@ -44,10 +44,8 @@ a[aria-current="page"] .selected-mark { display: inline; }
 .project-role { color: var(--muted); font-size: 12px; margin-top: -8px; margin-bottom: 24px; }
 .project-tools { color: var(--muted); font-size: 12px; }
 .close-project { position: absolute; top: 24px; right: 14px; background: none; border: 0; width: 28px; height: 32px; font-size: 20px; line-height: 1; color: var(--muted); }
-.ocean { display: none; position: relative; overflow: hidden; min-width: 0; min-height: 380px; background-color: var(--paper); background-image: linear-gradient(#28517c05 1px, transparent 1px), linear-gradient(90deg, #28517c05 1px, transparent 1px); background-size: 10px 10px; }
+.ocean { display: none; position: relative; overflow: hidden; min-width: 0; min-height: 380px; background: linear-gradient(145deg, #d5edf3 0%, #b2d6e6 45%, #88b7d5 100%); }
 .ocean canvas, .ocean-fallback { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; pointer-events: none; }
-.motion-toggle { position: absolute; right: 24px; bottom: 21px; z-index: 1; border: 0; padding: 4px; background: var(--paper); color: var(--muted); font-size: 11px; }
-.motion-toggle:hover { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
 .js .portfolio { height: 100svh; overflow: hidden; }
 .js .portfolio[data-project-open="true"] { grid-template-columns: var(--sidebar) var(--detail) minmax(0, 1fr); }
 .js .sidebar { height: 100%; overflow-y: auto; }
@@ -68,6 +66,5 @@ a[aria-current="page"] .selected-mark { display: inline; }
   .project-pane .project { max-width: 470px; }
   .close-project { right: 20px; }
   .ocean { min-height: 480px; height: 65svh; max-height: 700px; border-top: 1px solid var(--line); }
-  .motion-toggle { bottom: 15px; right: 19px; }
 }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; } }

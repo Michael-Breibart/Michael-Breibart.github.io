@@ -13,7 +13,7 @@ Open http://127.0.0.1:8000. Active checkout: `/Users/iphonecool/Downloads/Person
 ## Structure
 
 - `index.html`: short bio, project index, eight project articles, contact links.
-- `style.css`: white/ocean-blue palette, narrow text columns, responsive layout.
+- `style.css`: white text columns and colored blue water, narrow text columns, responsive layout.
 - `script.js`: project selection, URL hashes, browser history, close/Escape behavior.
 - `sharks.js`: original procedural 3D shark mesh, rasterized to ASCII with Canvas 2D.
 - `assets/sharks.svg`: static fallback art.
@@ -21,9 +21,9 @@ Open http://127.0.0.1:8000. Active checkout: `/Users/iphonecool/Downloads/Person
 
 On desktop, project selection opens a second column beside the index. On mobile, the details appear below the index and receive focus. Links such as `/#wedshare` work directly on GitHub Pages. Without JavaScript, all project articles remain readable.
 
-The sharks follow tangent-aligned swimming paths in a seamless 15-second loop. Positions, turns, nine tail strokes, and water particles share the same period. Pixel tiles use three dark-blue shades.
+The sharks follow tangent-aligned swimming paths in a seamless 15-second loop. Variable-speed harmonic paths, banking, depth changes, body waves, fin flex, and nine tail strokes share the same period. Curved wakes follow the earlier trajectory. Pixel tiles use three dark-blue shades.
 
-The shark renderer runs at a maximum of 30 frames per second, caps pixel density at 2, pauses when the page is hidden or the artwork is offscreen, and honors `prefers-reduced-motion`. The Play/Pause control allows explicit animation control. It uses no video, external models, WebGL, tracking, or network requests. Lighthouse scores require a measured audit; they are not inferred from the stack.
+The shark renderer runs at a maximum of 30 frames per second, caps pixel density at 2, pauses when the page is hidden or the artwork is offscreen, and honors `prefers-reduced-motion`. Cursor movement creates capped, fading ripple trails; clicks and taps add a larger splash. The light-blue water and white caustics remain behind the three dark-blue shark shades for clear separation. There is no visible animation control. OS reduced-motion settings stop continuous motion; immediate, stationary cursor lighting remains available. It uses no video, external models, WebGL, tracking, or network requests. Lighthouse scores require a measured audit; they are not inferred from the stack.
 
 ## Content
 

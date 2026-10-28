@@ -5,7 +5,6 @@
   if (!context) return;
   const ocean = document.getElementById('ocean');
   const fallback = document.getElementById('ocean-fallback');
-  const toggle = document.getElementById('motion-toggle');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const scratch = document.createElement('canvas');
   scratch.width = scratch.height = 176;
@@ -66,15 +65,30 @@
   let frameId = 0;
   let inView = true;
   let paused = reducedMotion.matches;
+  let waterTime = 0;
+  let waterGradient;
+  const ripples = [];
+  const pointer = { x: 0.5, y: 0.5, active: false };
+  let lastRippleTime = -1;
+  let lastRippleX = -1;
+  let lastRippleY = -1;
+  const waterShades = Array.from({ length: 24 }, (_, i) => {
+    const amount = i / 23;
+    return `rgba(236,252,255,${(0.015 + amount * 0.16).toFixed(3)})`;
+  });
 
-  function transform(point, phase, angle, yaw) {
+  function transform(point, phase, angle, yaw, bank) {
     let [x, y, z] = point;
-    // Tail movement increases toward the caudal fin; the nose stays steady.
-    const tail = Math.max(0, x + 0.1);
-    z += Math.sin(phase - x * 2.0) * tail * tail * 0.065;
+    // A traveling body wave grows toward the tail, with independent fin flex.
+    const tail = Math.max(0, x + 1.2) / 3.4;
+    z += Math.sin(phase - x * 2.2) * (0.016 + tail * tail * 0.30);
+    y += Math.sin(phase - x * 1.3) * 0.012;
+    if (Math.abs(z) > 0.43 && x < 1.2) {
+      y += Math.sin(phase + 0.8 - x) * Math.abs(z) * 0.065;
+    }
     const rx = x * Math.cos(yaw) + z * Math.sin(yaw);
     const rz = -x * Math.sin(yaw) + z * Math.cos(yaw);
-    const pitch = -0.64;
+    const pitch = -0.64 + bank;
     const ry = y * Math.cos(pitch) - rz * Math.sin(pitch);
     const depth = y * Math.sin(pitch) + rz * Math.cos(pitch);
     return [rx * Math.cos(angle) - ry * Math.sin(angle),
@@ -83,26 +97,30 @@
 
   function sharkPose(shark, index, seconds, viewWidth, viewHeight) {
     const small = viewWidth < 520;
-    const cycle = (seconds % LOOP_SECONDS) / LOOP_SECONDS * Math.PI * 2;
-    // Every component is periodic: position, heading, body turn, and tail beat.
+    const cycle = ((seconds % LOOP_SECONDS + LOOP_SECONDS) % LOOP_SECONDS) / LOOP_SECONDS * Math.PI * 2;
+    // Harmonic turns, depth changes, and variable speed still close every 15s.
     const orbit = cycle + (small ? 0.4 + index * Math.PI : shark.phase);
-    const radiusX = viewWidth * (small ? 0.25 : 0.28);
-    const radiusY = viewHeight * 0.29;
-    const velocityX = -Math.sin(orbit) * radiusX + Math.cos(orbit * 2) * viewWidth * 0.05;
-    const velocityY = Math.cos(orbit) * radiusY;
+    const bend = orbit + Math.sin(orbit * 2 + shark.phase) * 0.23;
+    const bendSpeed = 1 + Math.cos(orbit * 2 + shark.phase) * 0.46;
+    const radiusX = viewWidth * (small ? 0.24 : 0.27);
+    const radiusY = viewHeight * 0.27;
+    const velocityX = -Math.sin(bend) * radiusX * bendSpeed + Math.cos(orbit * 3 + shark.phase) * viewWidth * 0.105;
+    const velocityY = Math.cos(bend) * radiusY * bendSpeed + Math.cos(orbit * 2 - shark.phase) * viewHeight * 0.07;
+    const depth = 0.5 + Math.sin(orbit * 2 + shark.phase) * 0.5;
     return {
       angle: Math.atan2(velocityY, -velocityX),
       phase: cycle * 9 + shark.phase,
-      yaw: 0.18 + Math.sin(orbit + 0.4) * 0.23,
-      size: Math.min(viewWidth * (small ? 0.86 : 0.63), viewHeight * 0.66, 610) * shark.scale,
-      x: viewWidth * 0.50 + Math.cos(orbit) * radiusX + Math.sin(orbit * 2) * viewWidth * 0.025,
-      y: viewHeight * 0.50 + Math.sin(orbit) * radiusY
+      yaw: 0.18 + Math.sin(orbit * 2 + 0.4) * 0.30,
+      bank: Math.sin(orbit * 2 - shark.phase) * 0.16,
+      size: Math.min(viewWidth * (small ? 0.86 : 0.63), viewHeight * 0.66, 610) * shark.scale * (0.91 + depth * 0.12),
+      x: viewWidth * 0.50 + Math.cos(bend) * radiusX + Math.sin(orbit * 3 + shark.phase) * viewWidth * 0.035,
+      y: viewHeight * 0.50 + Math.sin(bend) * radiusY + Math.sin(orbit * 2 - shark.phase) * viewHeight * 0.035
     };
   }
 
   function drawShark(shark, index) {
-    const { angle, phase, yaw, size, x, y } = sharkPose(shark, index, time, width, height);
-    const points = vertices.map(point => transform(point, phase, angle, yaw));
+    const { angle, phase, yaw, bank, size, x, y } = sharkPose(shark, index, time, width, height);
+    const points = vertices.map(point => transform(point, phase, angle, yaw, bank));
     const triangles = faces.map(face => {
       const [a, b, c] = face.map(i => points[i]);
       const ab = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
@@ -124,7 +142,7 @@
       raster.fill();
     }
     // A dark eye helps the silhouette read as a shark rather than a generic fish.
-    const eye = transform([-1.28, 0.055, 0.18], phase, angle, yaw);
+    const eye = transform([-1.28, 0.055, 0.18], phase, angle, yaw, bank);
     raster.fillStyle = '#171717';
     raster.beginPath();
     raster.arc(78 + eye[0] * 32, 88 - eye[1] * 32, 1.25, 0, Math.PI * 2);
@@ -161,19 +179,78 @@
     }
   }
 
-  function draw() {
-    context.clearRect(0, 0, width, height);
-    const count = width < 520 ? 2 : 3;
-    for (let i = 0; i < count; i++) drawShark(sharks[i], i);
-    // A handful of quiet characters suggest suspended particles in the water.
-    context.font = '9px "Courier New", monospace';
-    context.fillStyle = 'rgba(45,90,133,0.21)';
-    for (let i = 0; i < 38; i++) {
-      const x = ((Math.sin(i * 76.31) * 14321.23) % 1 + 1) % 1 * width;
-      const cycle = time / LOOP_SECONDS * Math.PI * 2;
-      const y = (i * 43.7) % height + Math.sin(cycle + i) * 8;
-      context.fillText(i % 4 === 0 ? '+' : '·', x, y);
+  function drawWater() {
+    context.fillStyle = waterGradient;
+    context.fillRect(0, 0, width, height);
+    const cycle = time / LOOP_SECONDS * Math.PI * 2;
+    const liveRipples = ripples.map(ripple => ({
+      x: ripple.x * width, y: ripple.y * height,
+      age: waterTime - ripple.born, strength: ripple.strength
+    })).filter(ripple => ripple.age < 3.2);
+    const cell = width < 520 ? 22 : 26;
+    // Light moving through the water; low-contrast tiles keep sharks distinct.
+    for (let y = 0; y < height; y += cell) {
+      for (let x = 0; x < width; x += cell) {
+        let light = Math.sin(x * 0.011 + cycle * 2) * 0.25
+          + Math.sin(y * 0.016 - cycle) * 0.19
+          + Math.sin((x + y) * 0.008 + cycle) * 0.12;
+        let displacement = 0;
+        for (const ripple of liveRipples) {
+          const distance = Math.hypot(x - ripple.x, y - ripple.y);
+          const edge = distance - ripple.age * 110;
+          const envelope = Math.exp(-edge * edge / 1700) * (1 - ripple.age / 3.2) * ripple.strength;
+          const wave = Math.sin(edge * 0.11) * envelope;
+          light += wave * 0.75;
+          displacement += wave * 3;
+        }
+        const shade = Math.max(0, Math.min(23, Math.round((light + 0.65) / 1.3 * 23)));
+        context.fillStyle = waterShades[shade];
+        context.fillRect(x + displacement, y - displacement, cell - 0.5, cell - 0.5);
+      }
     }
+    if (pointer.active) {
+      const x = pointer.x * width;
+      const y = pointer.y * height;
+      const glow = context.createRadialGradient(x, y, 0, x, y, 105);
+      glow.addColorStop(0, 'rgba(242,253,255,0.35)');
+      glow.addColorStop(1, 'rgba(242,253,255,0)');
+      context.fillStyle = glow;
+      context.fillRect(x - 105, y - 105, 210, 210);
+    }
+    for (const ripple of liveRipples) {
+      const fade = (1 - ripple.age / 3.2) * ripple.strength;
+      const radius = 12 + ripple.age * 110;
+      for (let band = 0; band < 2; band++) {
+        context.beginPath();
+        context.arc(ripple.x, ripple.y, Math.max(1, radius - band * 14), 0, Math.PI * 2);
+        context.lineWidth = band ? 1.2 : 2.4;
+        context.strokeStyle = band ? `rgba(42,113,157,${fade * 0.17})` : `rgba(236,253,255,${fade * 0.57})`;
+        context.stroke();
+      }
+    }
+    while (ripples.length && waterTime - ripples[0].born > 3.2) ripples.shift();
+  }
+
+  function drawWake(shark, index) {
+    // Curved capillary wakes follow the actual earlier swimming trajectory.
+    for (let trail = 1; trail <= 9; trail++) {
+      const pose = sharkPose(shark, index, time - trail * 0.10, width, height);
+      const x = pose.x + Math.cos(pose.angle) * pose.size * 0.29;
+      const y = pose.y - Math.sin(pose.angle) * pose.size * 0.29;
+      const spread = 3 + trail * 1.7;
+      context.strokeStyle = `rgba(239,253,255,${0.16 * (1 - trail / 10)})`;
+      context.lineWidth = 1.1;
+      context.beginPath();
+      context.ellipse(x, y, spread, spread * 0.45, -pose.angle, 0, Math.PI * 2);
+      context.stroke();
+    }
+  }
+
+  function draw() {
+    drawWater();
+    const count = width < 520 ? 2 : 3;
+    for (let i = 0; i < count; i++) drawWake(sharks[i], i);
+    for (let i = 0; i < count; i++) drawShark(sharks[i], i);
     fallback.hidden = true;
   }
 
@@ -181,7 +258,9 @@
     frameId = 0;
     if (paused || document.hidden || !inView) return;
     if (now - lastTime >= FRAME_INTERVAL) {
-      time = (time + (now - lastTime) / 1000) % LOOP_SECONDS;
+      const elapsed = (now - lastTime) / 1000;
+      time = (time + elapsed) % LOOP_SECONDS;
+      waterTime += elapsed;
       lastTime = now;
       draw();
     }
@@ -191,9 +270,6 @@
   function updateMotion() {
     cancelAnimationFrame(frameId);
     frameId = 0;
-    toggle.textContent = paused ? 'Play' : 'Pause';
-    toggle.setAttribute('aria-label', paused ? 'Play shark animation' : 'Pause shark animation');
-    toggle.setAttribute('aria-pressed', String(paused));
     if (!paused && !document.hidden && inView) {
       lastTime = performance.now();
       frameId = requestAnimationFrame(frame);
@@ -208,6 +284,11 @@
     canvas.width = Math.round(width * dpr);
     canvas.height = Math.round(height * dpr);
     context.setTransform(dpr, 0, 0, dpr, 0, 0);
+    waterGradient = context.createLinearGradient(0, 0, width * 0.8, height);
+    waterGradient.addColorStop(0, '#d0eaf2');
+    waterGradient.addColorStop(0.48, '#add2e4');
+    waterGradient.addColorStop(1, '#87b6d4');
+    ripples.length = 0;
     draw();
   }
   new ResizeObserver(resize).observe(ocean);
@@ -215,10 +296,34 @@
     inView = entries[0].isIntersecting;
     updateMotion();
   }).observe(ocean);
-  toggle.addEventListener('click', () => { paused = !paused; updateMotion(); });
+  function disturbWater(event, splash = false) {
+    if (event.pointerType === 'touch' && !splash) return;
+    const bounds = ocean.getBoundingClientRect();
+    const x = (event.clientX - bounds.left) / width;
+    const y = (event.clientY - bounds.top) / height;
+    const distance = Math.hypot((x - lastRippleX) * width, (y - lastRippleY) * height);
+    pointer.x = x;
+    pointer.y = y;
+    pointer.active = true;
+    if (!paused && (splash || (waterTime - lastRippleTime > 0.075 && distance > 10))) {
+      ripples.push({ x, y, born: waterTime, strength: splash ? 1.3 : Math.min(1, 0.35 + distance / 85) });
+      if (ripples.length > 12) ripples.shift();
+      lastRippleTime = waterTime;
+      lastRippleX = x;
+      lastRippleY = y;
+    }
+    // OS reduced-motion still permits immediate, stationary cursor lighting.
+    if (paused) draw();
+  }
+  ocean.addEventListener('pointermove', event => disturbWater(event), { passive: true });
+  ocean.addEventListener('pointerdown', event => disturbWater(event, true), { passive: true });
+  ocean.addEventListener('pointerleave', () => {
+    pointer.active = false;
+    lastRippleX = lastRippleY = -1;
+    if (paused) draw();
+  });
   reducedMotion.addEventListener('change', event => { paused = event.matches; updateMotion(); });
   document.addEventListener('visibilitychange', updateMotion);
-  toggle.hidden = false;
   resize();
   updateMotion();
 })();

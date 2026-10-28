@@ -30,3 +30,7 @@ The user refined the direction to three dark-blue shades and a seamless 15-secon
 REA runtime check: `ev_12a99418b541823bc3b1c8a4c6a2317775ab42db7209876003c347131485f509`. Two successive animated screenshots differed; the screenshots immediately after pausing and 250ms later had identical SHA-256 values. WedShare opened successfully and no page errors were recorded.
 
 Reduced-motion check: `ev_275bf1321287d656479798842c1a9c023c8794a502797ff95b5f2e0259b6f60f`. The direct `#research` route opened at 375×812 with animation paused and a Play control.
+
+## Interactive-water refinement
+
+The user removed the visible pause control, requested more complex swimming, and added cursor-reactive colored water. The current scene separates dark navy sharks from a light-blue surface, with subtle moving caustics, expanding cursor/click ripples, and curved wakes. Swimming retains a 15-second baseline period with variable speed, harmonic turns, banking, depth changes, traveling body waves, and fin flex. Ripple interactions are transient rather than forced into that loop. Continuous motion still stops for OS reduced-motion, hidden pages, and offscreen artwork.
