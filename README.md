@@ -42,3 +42,5 @@ Repository: https://github.com/Michael-Breibart/Michael-Breibart.github.io
 Live: https://michael-breibart.github.io/
 
 GitHub Pages deploys from `main`; no special backend or Sites hosting is required. Check syntax (`node --check script.js` and `node --check sharks.js`), internal links, assets, project navigation/history, and desktop/mobile layouts before pushing.
+
+CSS and JavaScript URLs in `index.html` carry a short SHA-256 `v` parameter. Refresh it when editing those files so cached GitHub Pages assets cannot mix releases. This is URL versioning, not a build requirement.
